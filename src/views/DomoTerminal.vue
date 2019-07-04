@@ -126,7 +126,7 @@ export default {
 @import "../styles/variables";
 
 .card {
-  transition: background-color 0.5s cubic-bezier(0.55, 0, 0.1, 1);
+  transition: background-color 0.3s cubic-bezier(0.55, 0, 0.1, 1);
   border-radius: 4px;
   margin: 15px;
 
