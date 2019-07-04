@@ -1,13 +1,13 @@
 <template>
   <div class="domo-terminal">
-    <div class="columns is-multiline is-centered">
+    <div class="columns is-multiline is-centered" v-if="terminals.length">
       <div class="column is-one-quarter" v-for="(t, k) in terminals" :key="k">
         <div class="card" :class="{ active: t.state }">
           <div class="card-content" @click="sendSignal(t)">
             <p class="title">{{ t.name }}</p>
             <p class="subtitle">{{ t.label }}</p>
           </div>
-          <footer class="card-footer">
+          <footer class="card-footer" v-if="openRemove">
             <p class="card-footer-item">
               <button class="button is-danger" @click="remove(t.name)">Supprimer</button>
             </p>
@@ -16,7 +16,18 @@
       </div>
     </div>
     <hr />
-    <router-link class="button is-link" :to="{ name: 'new-terminal' }">Ajouter une borne</router-link>
+    <div class="buttons has-addons is-centered">
+      <router-link
+        tag="button"
+        class="button is-link"
+        :to="{ name: 'new-terminal' }"
+      >Ajouter une borne</router-link>
+      <button
+        class="button is-danger"
+        :class="{ 'is-outlined': !openRemove }"
+        @click="openRemove = !openRemove"
+      >Gérer les bornes</button>
+    </div>
   </div>
 </template>
 
@@ -31,7 +42,8 @@ export default {
       name: null,
       label: null,
       on: null,
-      off: null
+      off: null,
+      openRemove: false
     };
   },
   mounted() {
@@ -115,12 +127,13 @@ export default {
 @import "../styles/variables";
 
 .card {
-  transition: background-color 0.5s ease;
+  transition: background-color 0.5s cubic-bezier(0.55, 0, 0.1, 1);
   border-radius: 4px;
 
   .card-content:hover {
     cursor: pointer;
   }
+
   &.active {
     background-color: $primary;
     .title,
