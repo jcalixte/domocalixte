@@ -1,39 +1,27 @@
 <template>
   <div class="domo-terminal">
-    <a class="button" @click.prevent="retrieve">
-      <i class="glyph-icon flaticon-update-arrow"></i>
-    </a>
-    <ul v-if="terminals.length">
-      <li v-for="(t, k) in terminals" :key="k">
-        <h3>{{ t.name }}, {{ t.label }}</h3>
-        <h4>
-          <span v-if="t.alight">Allumé</span>
-          <span v-else>Éteins</span>
-        </h4>
-        <div>({{ t.signal.on }}, {{ t.signal.off }})</div>
-        <button class="button" @click="remove(t.name)">Supprimer</button>
-        <button class="button" @click="sendSignal(t, true)">Allumer</button>
-        <button class="button" @click="sendSignal(t, false)">Éteindre</button>
-      </li>
-    </ul>
-    <h2>Nouvelle borne</h2>
-    <form action="#" @submit.prevent="submit">
-      <label for="name">Nom</label>
-      <input type="text" id="name" name="name" v-model="name" />
-      <label for="label">Label</label>
-      <input type="text" id="label" name="label" v-model="label" />
-      <label for="signal-on">Signal On</label>
-      <input type="text" id="signal-on" name="signal-on" v-model="on" />
-      <label for="signal-off">Signal Off</label>
-      <input type="text" id="signal-off" name="signal-off" v-model="off" />
-      <button class="button" type="submit">Créer</button>
-    </form>
+    <div class="columns is-multiline is-centered">
+      <div class="column is-one-quarter" v-for="(t, k) in terminals" :key="k">
+        <div class="card" :class="{ active: t.state }">
+          <div class="card-content" @click="sendSignal(t)">
+            <p class="title">{{ t.name }}</p>
+            <p class="subtitle">{{ t.label }}</p>
+          </div>
+          <footer class="card-footer">
+            <p class="card-footer-item">
+              <button class="button is-danger" @click="remove(t.name)">Supprimer</button>
+            </p>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <router-link class="button is-link" :to="{ name: 'new-terminal' }">Ajouter une borne</router-link>
   </div>
 </template>
 
 <script>
 import terminalService from "../services/TerminalService";
-import signalService from "../services/SignalService";
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -90,7 +78,8 @@ export default {
         signal: {
           on: this.on,
           off: this.off
-        }
+        },
+        state: false
       };
       await terminalService.add(terminal);
       this.addTerminal(terminal);
@@ -103,15 +92,41 @@ export default {
       await terminalService.remove(name);
       this.removeTerminal(name);
     },
-    async sendSignal(terminal, alight) {
-      if (alight) {
-        await signalService.send(terminal.signal.on);
+    /**
+     *
+     */
+    async sendSignal(terminal) {
+      terminal = {
+        ...terminal,
+        state: !terminal.state
+      };
+      await terminalService.update(terminal);
+      if (terminal.state) {
         this.turnOn(terminal.name);
       } else {
-        await signalService.send(terminal.signal.off);
         this.turnOff(terminal.name);
       }
     }
   }
 };
 </script>
+
+<style lang="scss" scoped>
+@import "../styles/variables";
+
+.card {
+  transition: background-color 0.5s ease;
+  border-radius: 4px;
+
+  .card-content:hover {
+    cursor: pointer;
+  }
+  &.active {
+    background-color: $primary;
+    .title,
+    .subtitle {
+      color: $white;
+    }
+  }
+}
+</style>

@@ -27,7 +27,6 @@ export default {
   methods: {
     async getPassword() {
       this.password = await passwordService.getPassword();
-      console.log("get password", this.password);
       this.showPassword = !this.password;
     },
     async checkPassword() {

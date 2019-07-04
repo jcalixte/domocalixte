@@ -17,6 +17,18 @@ class TerminalService {
     }
   }
 
+  async update(terminal) {
+    try {
+      const response = await api.put("/terminal", terminal);
+      if (response) {
+        return response.data;
+      }
+      return false;
+    } catch (error) {
+      return false;
+    }
+  }
+
   async remove(name) {
     await api.delete(`/terminal/${name}`);
   }

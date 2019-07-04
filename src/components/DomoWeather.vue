@@ -4,9 +4,9 @@
       <i class="glyph-icon flaticon-update-arrow"></i>
     </a>
     <span v-if="weather">
-      <i class="glyph-icon flaticon-nature"></i>
+      <img src="@/assets/icons/sunrise.png" />
       {{ sunrise }}
-      <i class="glyph-icon flaticon-dawn"></i>
+      <img src="@/assets/icons/sunset.png" />
       {{ sunset }}
     </span>
   </div>
@@ -58,3 +58,9 @@ export default {
   }
 };
 </script>
+
+<style>
+img {
+  vertical-align: bottom;
+}
+</style>

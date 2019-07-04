@@ -12,20 +12,16 @@ const store = new Vuex.Store({
   },
   actions: {
     addTerminal({ commit }, terminal) {
-      terminal = {
-        ...terminal,
-        alight: false
-      };
       commit("ADD_TERMINAL", terminal);
     },
     removeTerminal({ commit }, name) {
       commit("REMOVE_TERMINAL", name);
     },
     turnOn({ commit }, name) {
-      commit("SWITCH", { name, alight: true });
+      commit("SWITCH", { name, terminalState: true });
     },
     turnOff({ commit }, name) {
-      commit("SWITCH", { name, alight: false });
+      commit("SWITCH", { name, terminalState: false });
     },
     clear({ commit }) {
       commit("CLEAR_TERMINAL");
@@ -46,11 +42,11 @@ const store = new Vuex.Store({
     CLEAR_TERMINAL(state) {
       state.terminals = [];
     },
-    SWITCH(state, { name, alight }) {
+    SWITCH(state, { name, terminalState }) {
       const index = state.terminals.findIndex(t => t.name === name);
       if (index >= 0) {
         const terminal = state.terminals[index];
-        terminal.alight = alight;
+        terminal.state = terminalState;
         Vue.set(state.terminals, index, terminal);
       }
     }

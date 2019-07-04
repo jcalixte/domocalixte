@@ -1,10 +1,31 @@
 <template>
   <div id="app">
-    <header>
-      <router-link :to="{ name: 'domo-home' }">Domotique Calixte</router-link>
-      <general-password />
-      <domo-weather class="info" />
-    </header>
+    <nav class="navbar is-primary">
+      <div class="navbar-brand">
+        <router-link class="navbar-item" :to="{ name: 'domo-home' }">Calixte</router-link>
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          @click="toggle"
+          :class="{ 'is-active': active }"
+        >
+          <span aria-hidden="true" v-for="i in 3" :key="i"></span>
+        </a>
+      </div>
+
+      <div class="navbar-menu" :class="{ 'is-active': active }">
+        <div class="navbar-end">
+          <domo-weather class="navbar-item info" />
+          <router-link
+            v-if="showPassword"
+            class="navbar-item"
+            :to="{ name: 'general-password' }"
+          >Mot de passe</router-link>
+        </div>
+      </div>
+    </nav>
     <main>
       <router-view></router-view>
     </main>
@@ -13,58 +34,35 @@
 
 <script>
 import "notyf/notyf.min.css";
-import DomoWeather from "./components/DomoWeather.vue";
-import GeneralPassword from "./components/GeneralPassword.vue";
+import passwordService from "@/services/PasswordService";
+import DomoWeather from "@/components/DomoWeather.vue";
 
 export default {
   name: "app",
   components: {
-    DomoWeather,
-    GeneralPassword
+    DomoWeather
+  },
+  data() {
+    return {
+      showPassword: false,
+      active: false
+    };
+  },
+  async mounted() {
+    await this.getPassword();
+  },
+  methods: {
+    toggle() {
+      this.active = !this.active;
+    },
+    async getPassword() {
+      const password = await passwordService.getPassword();
+      this.showPassword = !password;
+    }
   }
 };
 </script>
 
 <style lang="scss">
-@import "~bulma";
-
-body {
-  margin: 0;
-}
-
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-
-main {
-  text-align: center;
-  margin-top: 40px;
-}
-
-header {
-  margin: 0;
-  height: 56px;
-  padding: 0 16px 0 24px;
-  background-color: #35495e;
-  color: #ffffff;
-}
-
-header a {
-  color: white;
-  position: relative;
-  font-size: 20px;
-  line-height: 1;
-  letter-spacing: 0.02em;
-  font-weight: 400;
-  box-sizing: border-box;
-  margin-top: 6px;
-  text-decoration: none;
-}
-
-header .info {
-  float: right;
-}
+@import "./styles/index.scss";
 </style>
