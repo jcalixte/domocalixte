@@ -106,12 +106,12 @@ export default {
     /**
      *
      */
-    async sendSignal(terminal) {
+    sendSignal(terminal) {
       terminal = {
         ...terminal,
         state: !terminal.state
       };
-      await terminalService.update(terminal);
+      terminalService.update(terminal);
       if (terminal.state) {
         this.turnOn(terminal.name);
       } else {

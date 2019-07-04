@@ -3,6 +3,10 @@
 @import './variables';
 @import '~bulma';
 
+html {
+  overflow-y: auto;
+}
+
 body {
   margin: 0;
 }
