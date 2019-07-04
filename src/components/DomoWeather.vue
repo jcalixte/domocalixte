@@ -15,6 +15,13 @@
 <script>
 import weatherService from "../services/WeatherService";
 
+const toTime = date => {
+  return new Date(date * 1000).toLocaleTimeString("fr-FR", {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+};
+
 export default {
   name: "domo-weather",
   data() {
@@ -33,25 +40,15 @@ export default {
   computed: {
     sunrise() {
       if (this.weather) {
-        return new Date(this.weather.sys.sunrise * 1000).toLocaleTimeString(
-          "fr-FR",
-          {
-            hour: "2-digit",
-            minute: "2-digit"
-          }
-        );
+        const sunrise = this.weather.sys.sunrise;
+        return toTime(sunrise);
       }
       return null;
     },
     sunset() {
       if (this.weather) {
-        return new Date(this.weather.sys.sunset * 1000).toLocaleTimeString(
-          "fr-FR",
-          {
-            hour: "2-digit",
-            minute: "2-digit"
-          }
-        );
+        const sunset = this.weather.sys.sunset;
+        return toTime(sunset);
       }
       return null;
     }
