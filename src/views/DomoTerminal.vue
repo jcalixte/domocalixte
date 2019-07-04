@@ -1,5 +1,17 @@
 <template>
   <div class="domo-terminal">
+    <div class="buttons has-addons is-centered">
+      <router-link
+        tag="button"
+        class="button is-primary"
+        :to="{ name: 'new-terminal' }"
+      >Ajouter une borne</router-link>
+      <button
+        class="button is-danger"
+        :class="{ 'is-outlined': !openRemove }"
+        @click="openRemove = !openRemove"
+      >Gérer les bornes</button>
+    </div>
     <div class="columns is-multiline is-centered" v-if="terminals.length">
       <div class="column is-one-quarter" v-for="(t, k) in terminals" :key="k">
         <div class="card" :class="{ active: t.state }">
@@ -14,19 +26,6 @@
           </footer>
         </div>
       </div>
-    </div>
-    <hr />
-    <div class="buttons has-addons is-centered">
-      <router-link
-        tag="button"
-        class="button is-link"
-        :to="{ name: 'new-terminal' }"
-      >Ajouter une borne</router-link>
-      <button
-        class="button is-danger"
-        :class="{ 'is-outlined': !openRemove }"
-        @click="openRemove = !openRemove"
-      >Gérer les bornes</button>
     </div>
   </div>
 </template>
@@ -129,6 +128,7 @@ export default {
 .card {
   transition: background-color 0.5s cubic-bezier(0.55, 0, 0.1, 1);
   border-radius: 4px;
+  margin: 15px;
 
   .card-content:hover {
     cursor: pointer;
