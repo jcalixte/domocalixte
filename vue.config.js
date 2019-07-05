@@ -1,7 +1,7 @@
 module.exports = {
   pwa: {
-    themeColor: '#00897b',
-    msTileColor: '#00897b',
+    themeColor: '#94c1b6',
+    msTileColor: '#94c1b6',
     workboxOptions: {
       skipWaiting: true,
       clientsClaim: true

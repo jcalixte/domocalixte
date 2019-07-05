@@ -1,5 +1,5 @@
 {
-  "name": "Domotique",
+  "name": "72",
   "short_name": "Domotique Calixte",
   "icons": [
     {
@@ -16,5 +16,5 @@
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#00897b"
+  "theme_color": "#94c1b6"
 }

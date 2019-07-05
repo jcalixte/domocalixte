@@ -2,7 +2,7 @@
   <div id="app">
     <nav class="navbar is-primary">
       <div class="navbar-brand">
-        <router-link class="navbar-item" :to="{ name: 'domo-home' }">Calixte</router-link>
+        <router-link class="navbar-item" :to="{ name: 'domo-home' }">Au 72</router-link>
         <a
           role="button"
           class="navbar-burger"

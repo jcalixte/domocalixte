@@ -8,6 +8,7 @@
       {{ sunrise }}
       <img src="@/assets/icons/sunset.png" />
       {{ sunset }}
+      | {{ weather.main.temp }} °C
     </span>
   </div>
 </template>
