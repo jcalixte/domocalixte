@@ -8,7 +8,7 @@
       {{ sunrise }}
       <img src="@/assets/icons/sunset.png" />
       {{ sunset }}
-      | {{ weather.main.temp }} °C
+      <span class="temperature" v-if="temperature">{{ temperature }}°C</span>
     </span>
   </div>
 </template>
@@ -52,6 +52,16 @@ export default {
         return toTime(sunset);
       }
       return null;
+    },
+    temperature() {
+      if (this.weather) {
+        const temperature = this.weather.main.temp;
+        if (!temperature) {
+          return null;
+        }
+        return temperature.toLocaleString();
+      }
+      return null;
     }
   }
 };
@@ -60,5 +70,8 @@ export default {
 <style>
 img {
   vertical-align: bottom;
+}
+.temperature {
+  margin: 0 15px;
 }
 </style>
