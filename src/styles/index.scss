@@ -7,10 +7,13 @@
 
 html {
   overflow-y: auto;
+  background-color: $primary;
 }
 
 body {
   margin: 0;
+  background-color: $white;
+  height: 100vh;
 }
 
 #app {
@@ -27,7 +30,6 @@ main {
 
 header {
   margin: 0;
-  height: 56px;
   padding: 0 16px 0 24px;
   background-color: #35495e;
   color: #ffffff;
@@ -47,4 +49,9 @@ header a {
 
 header .info {
   float: right;
+}
+
+.no-margin {
+  margin-left: 0;
+  margin-right: 0;
 }

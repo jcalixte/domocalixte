@@ -5,14 +5,18 @@
         tag="button"
         class="button is-primary"
         :to="{ name: 'new-terminal' }"
-      >Ajouter une borne</router-link>
+      >
+        Ajouter une borne
+      </router-link>
       <button
         class="button is-danger"
         :class="{ 'is-outlined': !openRemove }"
         @click="openRemove = !openRemove"
-      >Gérer les bornes</button>
+      >
+        Gérer les bornes
+      </button>
     </div>
-    <div class="columns is-multiline is-centered" v-if="terminals.length">
+    <div class="columns no-margin is-multiline is-centered" v-if="terminals.length">
       <div class="column is-one-quarter" v-for="(t, k) in terminals" :key="k">
         <div class="card" :class="{ active: t.state }">
           <div class="card-content" @click="sendSignal(t)">
@@ -21,7 +25,9 @@
           </div>
           <footer class="card-footer" v-if="openRemove">
             <p class="card-footer-item">
-              <button class="button is-danger" @click="remove(t.name)">Supprimer</button>
+              <button class="button is-danger" @click="remove(t.name)">
+                Supprimer
+              </button>
             </p>
           </footer>
         </div>
@@ -31,11 +37,11 @@
 </template>
 
 <script>
-import terminalService from "../services/TerminalService";
-import { mapActions, mapGetters } from "vuex";
+import terminalService from '../services/TerminalService'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: "domo-terminal",
+  name: 'domo-terminal',
   data() {
     return {
       name: null,
@@ -43,44 +49,42 @@ export default {
       on: null,
       off: null,
       openRemove: false
-    };
+    }
   },
   mounted() {
-    this.retrieve();
+    this.retrieve()
   },
   computed: {
-    ...mapGetters(["terminals"])
+    ...mapGetters(['terminals'])
   },
   methods: {
-    ...mapActions(["addTerminal", "removeTerminal", "turnOn", "turnOff"]),
+    ...mapActions(['addTerminal', 'removeTerminal', 'turnOn', 'turnOff']),
     async retrieve() {
-      const terminals = await terminalService.get();
+      const terminals = await terminalService.get()
       for (let terminal of terminals) {
-        this.addTerminal(terminal);
+        this.addTerminal(terminal)
       }
     },
     async submit() {
-      let exist = this.terminals.find(t => t.name === this.name);
+      let exist = this.terminals.find((t) => t.name === this.name)
 
       if (exist) {
-        console.log(`Une borne porte déjà le nom ${this.name}`);
-        return;
+        console.log(`Une borne porte déjà le nom ${this.name}`)
+        return
       }
 
-      exist = this.terminals.find(t => t.signal.on === this.on);
+      exist = this.terminals.find((t) => t.signal.on === this.on)
 
       if (exist) {
-        console.log(`Une borne utilise déjà le code ${this.on} pour allumer.`);
-        return;
+        console.log(`Une borne utilise déjà le code ${this.on} pour allumer.`)
+        return
       }
 
-      exist = this.terminals.find(t => t.signal.off === this.off);
+      exist = this.terminals.find((t) => t.signal.off === this.off)
 
       if (exist) {
-        console.log(
-          `Une borne utilise déjà le code ${this.off} pour éteindre.`
-        );
-        return;
+        console.log(`Une borne utilise déjà le code ${this.off} pour éteindre.`)
+        return
       }
 
       const terminal = {
@@ -91,17 +95,17 @@ export default {
           off: this.off
         },
         state: false
-      };
-      await terminalService.add(terminal);
-      this.addTerminal(terminal);
-      this.name = null;
-      this.label = null;
-      this.on = null;
-      this.off = null;
+      }
+      await terminalService.add(terminal)
+      this.addTerminal(terminal)
+      this.name = null
+      this.label = null
+      this.on = null
+      this.off = null
     },
     async remove(name) {
-      await terminalService.remove(name);
-      this.removeTerminal(name);
+      await terminalService.remove(name)
+      this.removeTerminal(name)
     },
     /**
      *
@@ -110,20 +114,20 @@ export default {
       terminal = {
         ...terminal,
         state: !terminal.state
-      };
-      terminalService.update(terminal);
+      }
+      terminalService.update(terminal)
       if (terminal.state) {
-        this.turnOn(terminal.name);
+        this.turnOn(terminal.name)
       } else {
-        this.turnOff(terminal.name);
+        this.turnOff(terminal.name)
       }
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/variables";
+@import '../styles/variables';
 
 .card {
   transition: background-color 0.3s cubic-bezier(0.55, 0, 0.1, 1);
