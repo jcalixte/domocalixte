@@ -16,7 +16,10 @@
         Gérer les bornes
       </button>
     </div>
-    <div class="columns no-margin is-multiline is-centered" v-if="terminals.length">
+    <div
+      class="columns no-margin is-multiline is-centered"
+      v-if="terminals.length"
+    >
       <div class="column is-one-quarter" v-for="(t, k) in terminals" :key="k">
         <div class="card" :class="{ active: t.state }">
           <div class="card-content" @click="sendSignal(t)">
@@ -39,6 +42,7 @@
 <script>
 import terminalService from '../services/TerminalService'
 import { mapActions, mapGetters } from 'vuex'
+import { Notyf } from 'notyf'
 
 export default {
   name: 'domo-terminal',
@@ -69,21 +73,25 @@ export default {
       let exist = this.terminals.find((t) => t.name === this.name)
 
       if (exist) {
-        console.log(`Une borne porte déjà le nom ${this.name}`)
+        new Notyf().error(`Une borne porte déjà le nom ${this.name}`)
         return
       }
 
       exist = this.terminals.find((t) => t.signal.on === this.on)
 
       if (exist) {
-        console.log(`Une borne utilise déjà le code ${this.on} pour allumer.`)
+        new Notyf().error(
+          `Une borne utilise déjà le code ${this.on} pour allumer.`
+        )
         return
       }
 
       exist = this.terminals.find((t) => t.signal.off === this.off)
 
       if (exist) {
-        console.log(`Une borne utilise déjà le code ${this.off} pour éteindre.`)
+        new Notyf().error(
+          `Une borne utilise déjà le code ${this.off} pour éteindre.`
+        )
         return
       }
 

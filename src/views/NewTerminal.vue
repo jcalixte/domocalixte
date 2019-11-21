@@ -5,19 +5,43 @@
       <div class="columns is-multiline">
         <div class="column is-half">
           <label for="name">Nom</label>
-          <input class="input" type="text" id="name" name="name" v-model="name" />
+          <input
+            class="input"
+            type="text"
+            id="name"
+            name="name"
+            v-model="name"
+          />
         </div>
         <div class="column is-half">
           <label for="label">Description</label>
-          <input class="input" type="text" id="label" name="label" v-model="label" />
+          <input
+            class="input"
+            type="text"
+            id="label"
+            name="label"
+            v-model="label"
+          />
         </div>
         <div class="column is-half">
           <label for="signal-on">Signal ON</label>
-          <input class="input" type="text" id="signal-on" name="signal-on" v-model="on" />
+          <input
+            class="input"
+            type="text"
+            id="signal-on"
+            name="signal-on"
+            v-model="on"
+          />
         </div>
         <div class="column is-half">
           <label for="signal-off">Signal OFF</label>
-          <input class="input" type="text" id="signal-off" name="signal-off" v-model="off" />
+          <input
+            class="input"
+            type="text"
+            id="signal-off"
+            name="signal-off"
+            v-model="off"
+          />
         </div>
       </div>
 
@@ -27,46 +51,46 @@
 </template>
 
 <script>
-import terminalService from "../services/TerminalService";
-import { mapActions, mapGetters } from "vuex";
+import terminalService from '../services/TerminalService'
+import { mapActions, mapGetters } from 'vuex'
+import { Notyf } from 'notyf'
 
 export default {
-  name: "new-terminal",
+  name: 'new-terminal',
   data() {
     return {
       name: null,
       label: null,
       on: null,
       off: null
-    };
+    }
   },
   computed: {
-    ...mapGetters(["terminals"])
+    ...mapGetters(['terminals'])
   },
   methods: {
-    ...mapActions(["addTerminal", "removeTerminal", "turnOn", "turnOff"]),
+    ...mapActions(['addTerminal', 'removeTerminal', 'turnOn', 'turnOff']),
     async submit() {
-      let exist = this.terminals.find(t => t.name === this.name);
+      const notif = new Notyf()
+      let exist = this.terminals.find((t) => t.name === this.name)
 
       if (exist) {
-        console.log(`Une borne porte déjà le nom ${this.name}`);
-        return;
+        notif.error(`Une borne porte déjà le nom ${this.name}`)
+        return
       }
 
-      exist = this.terminals.find(t => t.signal.on === this.on);
+      exist = this.terminals.find((t) => t.signal.on === this.on)
 
       if (exist) {
-        console.log(`Une borne utilise déjà le code ${this.on} pour allumer.`);
-        return;
+        notif.error(`Une borne utilise déjà le code ${this.on} pour allumer.`)
+        return
       }
 
-      exist = this.terminals.find(t => t.signal.off === this.off);
+      exist = this.terminals.find((t) => t.signal.off === this.off)
 
       if (exist) {
-        console.log(
-          `Une borne utilise déjà le code ${this.off} pour éteindre.`
-        );
-        return;
+        notif.error(`Une borne utilise déjà le code ${this.off} pour éteindre.`)
+        return
       }
 
       const terminal = {
@@ -77,10 +101,10 @@ export default {
           off: this.off
         },
         state: false
-      };
-      await terminalService.add(terminal);
-      this.$router.push("/");
+      }
+      await terminalService.add(terminal)
+      this.$router.push('/')
     }
   }
-};
+}
 </script>

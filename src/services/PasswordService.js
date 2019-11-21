@@ -1,51 +1,52 @@
-import db from "../models/db";
-import instance from "../api";
+import db from '../models/db'
+import instance from '../api'
+import { Notyf } from 'notyf'
 
 class PasswordService {
   async checkPassword(password) {
     if (!password) {
-      return false;
+      return false
     }
-    let doc = null;
+    let doc = null
     try {
-      doc = await db.get("password");
-      doc.password = password;
-      await db.put(doc);
+      doc = await db.get('password')
+      doc.password = password
+      await db.put(doc)
     } catch (error) {
       await db.post({
-        _id: "password",
+        _id: 'password',
         password
-      });
+      })
     }
     try {
-      await instance.get(`/checkpassword`);
-      return true;
+      await instance.get(`/checkpassword`)
+      return true
     } catch (error) {
-      console.info({ error });
-      await this.reset();
-      return false;
+      new Notyf().error({ error })
+      await this.reset()
+      return false
     }
   }
   async getPassword() {
     try {
-      const doc = await db.get("password");
+      const doc = await db.get('password')
       if (doc) {
-        return doc.password;
+        return doc.password
       }
-      return "";
+      return ''
     } catch (error) {
-      return "";
+      return ''
     }
   }
   async reset() {
     try {
-      const doc = await db.get("password");
-      await db.remove(doc);
-      return true;
+      const doc = await db.get('password')
+      await db.remove(doc)
+      return true
     } catch (error) {
-      return false;
+      return false
     }
   }
 }
 
-export default new PasswordService();
+export default new PasswordService()

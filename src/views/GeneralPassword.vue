@@ -11,41 +11,42 @@
 </template>
 
 <script>
-import passwordService from "../services/PasswordService";
+import passwordService from '../services/PasswordService'
+import { Notyf } from 'notyf'
 
 export default {
-  name: "general-password",
+  name: 'general-password',
   data() {
     return {
       showPassword: false,
-      password: ""
-    };
+      password: ''
+    }
   },
   async mounted() {
-    await this.getPassword();
+    await this.getPassword()
   },
   methods: {
     async getPassword() {
-      this.password = await passwordService.getPassword();
-      this.showPassword = !this.password;
+      this.password = await passwordService.getPassword()
+      this.showPassword = !this.password
     },
     async checkPassword() {
-      const result = await passwordService.checkPassword(this.password);
+      const result = await passwordService.checkPassword(this.password)
       if (result) {
-        await this.getPassword();
+        await this.getPassword()
       } else {
-        console.log("check password failed");
+        new Notyf().error('check password failed')
       }
     },
     async resetPassword() {
-      const result = await passwordService.reset();
+      const result = await passwordService.reset()
       if (result) {
-        this.password = "";
-        this.showPassword = true;
+        this.password = ''
+        this.showPassword = true
       }
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
