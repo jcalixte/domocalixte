@@ -1,7 +1,12 @@
 <template>
   <div class="general-password">
     <div v-if="showPassword">
-      <input class="input" placeholder="mot de passe" v-model="password" />
+      <input
+        type="password"
+        class="input"
+        placeholder="mot de passe"
+        v-model="password"
+      />
       <button class="button is-outlined" @click="checkPassword">Valider</button>
     </div>
     <div v-else>

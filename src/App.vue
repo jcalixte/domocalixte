@@ -2,28 +2,18 @@
   <div id="app">
     <nav class="navbar is-primary">
       <div class="navbar-brand">
-        <router-link class="navbar-item" :to="{ name: 'domo-home' }">Au 72</router-link>
-        <a
-          role="button"
-          class="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          @click="toggle"
-          :class="{ 'is-active': active }"
+        <router-link class="navbar-item" :to="{ name: 'domo-home' }"
+          >Au 72</router-link
         >
-          <span aria-hidden="true" v-for="i in 3" :key="i"></span>
-        </a>
       </div>
-
-      <div class="navbar-menu" :class="{ 'is-active': active }">
-        <div class="navbar-end">
-          <domo-weather class="navbar-item info" />
-          <router-link
-            v-if="showPassword"
-            class="navbar-item"
-            :to="{ name: 'general-password' }"
-          >Mot de passe</router-link>
-        </div>
+      <div class="navbar-end">
+        <domo-weather class="navbar-item info" />
+        <router-link
+          v-if="showPassword"
+          class="navbar-item"
+          :to="{ name: 'general-password' }"
+          >Mot de passe</router-link
+        >
       </div>
     </nav>
     <main>
@@ -33,12 +23,12 @@
 </template>
 
 <script>
-import "notyf/notyf.min.css";
-import passwordService from "@/services/PasswordService";
-import DomoWeather from "@/components/DomoWeather.vue";
+import 'notyf/notyf.min.css'
+import passwordService from '@/services/PasswordService'
+import DomoWeather from '@/components/DomoWeather.vue'
 
 export default {
-  name: "app",
+  name: 'app',
   components: {
     DomoWeather
   },
@@ -46,23 +36,23 @@ export default {
     return {
       showPassword: false,
       active: false
-    };
+    }
   },
   async mounted() {
-    await this.getPassword();
+    await this.getPassword()
   },
   methods: {
     toggle() {
-      this.active = !this.active;
+      this.active = !this.active
     },
     async getPassword() {
-      const password = await passwordService.getPassword();
-      this.showPassword = !password;
+      const password = await passwordService.getPassword()
+      this.showPassword = !password
     }
   }
-};
+}
 </script>
 
 <style lang="scss">
-@import "./styles/index.scss";
+@import './styles/index.scss';
 </style>
