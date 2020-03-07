@@ -2,46 +2,86 @@
   <div class="domo-terminal">
     <h2 class="title is-2">Nouvelle borne</h2>
     <form action="#" @submit.prevent="submit">
-      <div class="columns is-multiline">
+      <div class="columns is-centered is-multiline">
         <div class="column is-half">
-          <label for="name">Nom</label>
-          <input
-            class="input"
-            type="text"
-            id="name"
-            name="name"
-            v-model="name"
-          />
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label" for="name">Nom</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="name"
+                    name="name"
+                    v-model="name"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="column is-half">
-          <label for="label">Description</label>
-          <input
-            class="input"
-            type="text"
-            id="label"
-            name="label"
-            v-model="label"
-          />
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label" for="name">Description</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="label"
+                    name="label"
+                    v-model="label"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="column is-half">
-          <label for="signal-on">Signal ON</label>
-          <input
-            class="input"
-            type="text"
-            id="signal-on"
-            name="signal-on"
-            v-model="on"
-          />
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label" for="signal-on">Signal ON</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="signal-on"
+                    name="signal-on"
+                    v-model="on"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="column is-half">
-          <label for="signal-off">Signal OFF</label>
-          <input
-            class="input"
-            type="text"
-            id="signal-off"
-            name="signal-off"
-            v-model="off"
-          />
+          <div class="field is-horizontal">
+            <div class="field-label is-normal">
+              <label class="label" for="signal-off">Signal OFF</label>
+            </div>
+            <div class="field-body">
+              <div class="field">
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    id="signal-off"
+                    name="signal-off"
+                    v-model="off"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -108,3 +148,9 @@ export default {
   }
 }
 </script>
+
+<style>
+form {
+  margin: 15px;
+}
+</style>
