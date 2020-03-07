@@ -5,8 +5,6 @@
         <router-link class="navbar-item" :to="{ name: 'domo-home' }"
           >Au 72</router-link
         >
-      </div>
-      <div class="navbar-end">
         <domo-weather class="navbar-item info" />
         <router-link
           v-if="showPassword"
