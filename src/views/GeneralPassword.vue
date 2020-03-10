@@ -1,13 +1,19 @@
 <template>
   <div class="general-password">
-    <div v-if="showPassword">
-      <input
-        type="password"
-        class="input"
-        placeholder="mot de passe"
-        v-model="password"
-      />
-      <button class="button is-outlined" @click="checkPassword">Valider</button>
+    <div v-if="showPassword" class="field has-addons">
+      <div class="control">
+        <input
+          type="password"
+          class="input "
+          placeholder="mot de passe"
+          v-model="password"
+        />
+      </div>
+      <div class="control">
+        <button class="button is-outlined" @click="checkPassword">
+          Valider
+        </button>
+      </div>
     </div>
     <div v-else>
       <button class="button is-outlined" @click="resetPassword">Reset</button>
@@ -54,7 +60,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+ <style lang="scss" scoped>
 .general-password {
   display: inline-block;
   input {
