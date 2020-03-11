@@ -20,7 +20,7 @@
       class="columns no-margin is-multiline is-centered"
       v-if="terminals.length"
     >
-      <div class="column is-one-quarter" v-for="(t, k) in terminals" :key="k">
+      <div class="column is-half" v-for="(t, k) in terminals" :key="k">
         <div class="card" :class="{ active: t.state }">
           <div class="card-content" @click="sendSignal(t)">
             <p class="title">{{ t.name }}</p>

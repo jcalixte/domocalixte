@@ -21,7 +21,7 @@ module.exports = {
           type: 'image/png'
         }
       ],
-      start_url: './index.html',
+      start_url: '/',
       display: 'standalone',
       background_color: '#ffffff',
       theme_color: '#94c1b6'
