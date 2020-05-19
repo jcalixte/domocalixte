@@ -86,7 +86,7 @@ module.exports = {
       ],
       start_url: '/',
       display: 'standalone',
-      background_color: '#ffffff',
+      background_color: '#94c1b6',
       theme_color: '#94c1b6'
     }
   }
