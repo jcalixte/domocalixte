@@ -5,21 +5,14 @@
         tag="button"
         class="button is-primary"
         :to="{ name: 'new-terminal' }"
-      >
-        Ajouter une borne
-      </router-link>
+      >Ajouter une borne</router-link>
       <button
         class="button is-danger"
         :class="{ 'is-outlined': !openRemove }"
         @click="openRemove = !openRemove"
-      >
-        Gérer les bornes
-      </button>
+      >Gérer les bornes</button>
     </div>
-    <div
-      class="columns no-margin is-multiline is-centered"
-      v-if="terminals.length"
-    >
+    <div class="columns no-margin is-multiline is-centered is-mobile" v-if="terminals.length">
       <div class="column is-half" v-for="(t, k) in terminals" :key="k">
         <div class="card" :class="{ active: t.state }">
           <div class="card-content" @click="sendSignal(t)">
@@ -28,9 +21,7 @@
           </div>
           <footer class="card-footer" v-if="openRemove">
             <p class="card-footer-item">
-              <button class="button is-danger" @click="remove(t.name)">
-                Supprimer
-              </button>
+              <button class="button is-danger" @click="remove(t.name)">Supprimer</button>
             </p>
           </footer>
         </div>
