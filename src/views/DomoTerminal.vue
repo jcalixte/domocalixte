@@ -8,18 +8,18 @@
       >Ajouter une borne</router-link>
       <button
         class="button is-danger"
-        :class="{ 'is-outlined': !openRemove }"
-        @click="openRemove = !openRemove"
+        :class="{ 'is-outlined': !displayAction }"
+        @click="displayAction = !displayAction"
       >Gérer les bornes</button>
     </div>
     <div class="columns no-margin is-multiline is-centered is-mobile" v-if="terminals.length">
       <div class="column is-half" v-for="(t, k) in terminals" :key="k">
-        <div class="card" :class="{ active: t.state }">
+        <div class="card no-margin" :class="{ active: t.state }">
           <div class="card-content" @click="sendSignal(t)">
-            <p class="title">{{ t.name }}</p>
+            <p class="title is-4">{{ t.name }}</p>
             <p class="subtitle">{{ t.label }}</p>
           </div>
-          <footer class="card-footer" v-if="openRemove">
+          <footer class="card-footer" v-if="displayAction">
             <p class="card-footer-item">
               <button class="button is-danger" @click="remove(t.name)">Supprimer</button>
             </p>
@@ -43,7 +43,7 @@ export default {
       label: null,
       on: null,
       off: null,
-      openRemove: false
+      displayAction: false
     }
   },
   mounted() {
@@ -131,7 +131,6 @@ export default {
 .card {
   transition: background-color 0.3s cubic-bezier(0.55, 0, 0.1, 1);
   border-radius: 4px;
-  margin: 15px;
 
   .card-content:hover {
     cursor: pointer;
