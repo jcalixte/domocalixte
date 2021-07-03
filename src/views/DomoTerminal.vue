@@ -16,7 +16,7 @@
       <div class="column is-half" v-for="(t, k) in terminals" :key="k">
         <div class="card no-margin" :class="{ active: t.state }">
           <div class="card-content" @click="sendSignal(t)">
-            <p class="title is-4">{{ t.name }}</p>
+            <p class="title is-5">{{ t.name }}</p>
             <p class="subtitle">{{ t.label }}</p>
           </div>
           <footer class="card-footer" v-if="displayAction">
